@@ -55,10 +55,10 @@ struct ProfileCreationView: View {
                 .cornerRadius(8)
             
             TextField("Bio", text: $bio, axis: .vertical)
-                      .padding()
-                      .frame(height: 100)
-                      .background(Color(.secondarySystemBackground))
-                      .cornerRadius(8)
+                .padding()
+                .frame(height: 100)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(8)
             
             Button(action: saveProfile) {
                 Text("Save Profile")
@@ -110,6 +110,8 @@ struct ProfileCreationView: View {
         }
     }
 }
+
+
 
 #Preview {
     ProfileCreationView()

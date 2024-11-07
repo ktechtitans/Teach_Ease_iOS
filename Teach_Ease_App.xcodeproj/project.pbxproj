@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A5D0D412CDD5292001C2DD5 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5D0D402CDD5289001C2DD5 /* ProfileData.swift */; };
 		9A83BC462CD166AE002EE53D /* Teach_Ease_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC452CD166AE002EE53D /* Teach_Ease_AppApp.swift */; };
 		9A83BC482CD166AE002EE53D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC472CD166AE002EE53D /* ContentView.swift */; };
 		9A83BC4A2CD166B0002EE53D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A83BC492CD166B0002EE53D /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A5D0D402CDD5289001C2DD5 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		9A83BC422CD166AE002EE53D /* Teach_Ease_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teach_Ease_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A83BC452CD166AE002EE53D /* Teach_Ease_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teach_Ease_AppApp.swift; sourceTree = "<group>"; };
 		9A83BC472CD166AE002EE53D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		9A83BC6B2CD16BC1002EE53D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9A5D0D402CDD5289001C2DD5 /* ProfileData.swift */,
 				9A83BC752CD16DF2002EE53D /* UserRegistration.swift */,
 				9A83BC772CD16E2B002EE53D /* UserLogin.swift */,
 				9A83BC792CD16E53002EE53D /* CourseModel.swift */,
@@ -238,6 +241,7 @@
 				9A83BC782CD16E2B002EE53D /* UserLogin.swift in Sources */,
 				9A83BC482CD166AE002EE53D /* ContentView.swift in Sources */,
 				9A83BC7C2CD16EB0002EE53D /* SearchPageView.swift in Sources */,
+				9A5D0D412CDD5292001C2DD5 /* ProfileData.swift in Sources */,
 				9A83BC702CD16C61002EE53D /* LoginView.swift in Sources */,
 				9A83BC742CD16CD7002EE53D /* HomeContentView.swift in Sources */,
 				9A83BC462CD166AE002EE53D /* Teach_Ease_AppApp.swift in Sources */,

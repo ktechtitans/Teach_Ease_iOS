@@ -28,16 +28,9 @@ struct HomePageView: View {
                 Text("Search")
             }
 
-            // Profile Tab with Direct Content
+            // Profile Tab - Shows the ProfileView directly
             NavigationStack {
-                VStack {
-                    Text("Profile")
-                        .font(.largeTitle)
-                        .padding()
-
-                    
-                }
-                .padding()
+                ProfileView() // Show ProfileView here
             }
             .tabItem {
                 Image(systemName: "person.fill")
