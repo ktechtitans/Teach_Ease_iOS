@@ -7,105 +7,91 @@
 
 import SwiftUI
 
-
-// Sample featured course data
-let featuredCourse = CourseModel(
-    title: "Swift Programming",
-    description: "Master iOS development with Swift.",
-    image: "Swift_Language" // Make sure this image is in the assets
-)
-
-let sampleCourses: [CourseModel] = [
-    CourseModel(title: "C Programming", description: "Learn the basics of C programming.", image: "C_Language"),
-    CourseModel(title: "C++ Programming", description: "Explore object-oriented programming with C++.", image: "C++_Language"),
-    CourseModel(title: "R Programming", description: "Data analysis and visualization with R.", image: "R_Language")
-]
-
-// Sample science course data
-let sampleScienceCourses: [CourseModel] = [
-    CourseModel(title: "Physics", description: "Learn the fundamentals of physics.", image: "Physics_Image"),
-    CourseModel(title: "Chemistry", description: "Explore the world of chemistry.", image: "Chemistry_Image"),
-    CourseModel(title: "Biology", description: "Discover the science of living organisms.", image: "Biology_Image")
-]
-
+// MARK: - HomeContentView
 struct HomeContentView: View {
     var body: some View {
-        VStack(spacing: 0) {
-            // Fixed Title Section
-            HStack {
-                Text("TeachEase")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.vertical, 70)
-                    .padding(.bottom, -40)
+        NavigationView { // Wrap in NavigationView to enable navigation
+            VStack(spacing: 0) {
+                // Title Section
+                HStack {
+                    Text("TeachEase")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.vertical, 70)
+                        .padding(.bottom, -40)
 
-                Spacer()
+                    Spacer()
 
-                Text("Welcome!")
-                    .font(.title3)
-                    .fontWeight(.medium)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .padding(.bottom, -40)
+                    Text("Welcome!")
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.bottom, -40)
+                }
+                .padding()
+                .background(Color.white)
                 
-            }
-            .padding()
-            .background(Color.white) // Background color for title section
+                Divider()
 
-            Divider() // Add a divider to separate title from content
+                // Scrollable Content
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        // Featured Course Section
+                        FeaturedCourseView(course: featuredCourse)
+                            .padding(.horizontal, 20)
 
-            // Scrollable Content
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    // Featured Course Section
-                    FeaturedCourseView(course: featuredCourse)
-                        .padding(.horizontal, 20)
+                        // Programming Courses Section Title
+                        Text("Programming Categories")
+                            .font(.headline)
+                            .padding(.horizontal, 20)
 
-                    // Programming Courses Section Title
-                    Text("Programming Categories")
-                        .font(.headline)
-                        .padding(.horizontal, 20)
-
-                    // Programming Courses Section
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(sampleCourses) { course in
-                                CourseCard(course: course)
-                                    .frame(width: 220)
+                        // Programming Courses Section
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                ForEach(sampleCourses) { course in
+                                    NavigationLink(destination: CourseDetailView(course: course)) { // NavigationLink for tapping on the course card
+                                        CourseCard(course: course)
+                                            .frame(width: 220)
+                                    }
+                                    .buttonStyle(PlainButtonStyle()) // Avoid default button styling of NavigationLink
+                                }
                             }
+                            .padding(.horizontal, 20)
                         }
-                        .padding(.horizontal, 20)
-                    }
-                    .padding(.top, 10)
+                        .padding(.top, 10)
 
-                    // Science Courses Section Title
-                    Text("Science Categories")
-                        .font(.headline)
-                        .padding(.horizontal, 20)
+                        // Science Courses Section Title
+                        Text("Science Categories")
+                            .font(.headline)
+                            .padding(.horizontal, 20)
 
-                    // Science Courses Section
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 15) {
-                            ForEach(sampleScienceCourses) { course in
-                                CourseCard(course: course)
-                                    .frame(width: 220)
+                        // Science Courses Section
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                ForEach(sampleScienceCourses) { course in
+                                    NavigationLink(destination: CourseDetailView(course: course)) { // NavigationLink for tapping on the course card
+                                        CourseCard(course: course)
+                                            .frame(width: 220)
+                                    }
+                                    .buttonStyle(PlainButtonStyle()) // Avoid default button styling of NavigationLink
+                                }
                             }
+                            .padding(.horizontal, 20)
                         }
-                        .padding(.horizontal, 20)
+                        .padding(.top, 10)
                     }
-                    .padding(.top, 10)
                 }
             }
+            .background(Color(UIColor.systemGroupedBackground))
+            .ignoresSafeArea(edges: .top)
         }
-        .background(Color(UIColor.systemGroupedBackground))
-        .ignoresSafeArea(edges: .top) // Ensures the content aligns with the top of the screen
     }
 }
 
-
-// Custom view for displaying the featured course
+// MARK: - FeaturedCourseView
 struct FeaturedCourseView: View {
     let course: CourseModel
     
@@ -138,7 +124,7 @@ struct FeaturedCourseView: View {
     }
 }
 
-// Custom view for displaying each course
+// MARK: - CourseCard
 struct CourseCard: View {
     let course: CourseModel
     
@@ -167,6 +153,35 @@ struct CourseCard: View {
     }
 }
 
+// MARK: - CourseDetailView
+struct CourseDetailView: View {
+    let course: CourseModel
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Image(course.image)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 300)
+                .cornerRadius(12)
+            
+            Text(course.title)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.top, 20)
+            
+            Text(course.description)
+                .font(.body)
+                .padding()
+            
+            Spacer()
+        }
+        .padding()
+        .navigationTitle(course.title)
+    }
+}
+
+// Preview for SwiftUI Canvas
 #Preview {
     HomeContentView()
 }
