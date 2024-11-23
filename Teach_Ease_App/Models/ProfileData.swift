@@ -25,7 +25,7 @@ class ProfileData: ObservableObject {
                 self.username = document.get("username") as? String ?? ""
                 self.dob = (document.get("dob") as? Timestamp)?.dateValue() ?? Date()
                 self.education = document.get("education") as? String ?? ""
-                self.language = document.get("languagePreference") as? String ?? ""
+                self.language = document.get("language") as? String ?? ""
                 self.bio = document.get("bio") as? String ?? ""
             }
         }

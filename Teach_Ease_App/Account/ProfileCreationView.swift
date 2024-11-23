@@ -14,7 +14,7 @@ struct ProfileCreationView: View {
     @State private var username: String = ""
     @State private var dob: Date = Date()
     @State private var education: String = ""
-    @State private var languagePreference: String = ""
+    @State private var language: String = ""
     @State private var bio: String = ""
     @State private var alertMessage: String = ""
     @State private var showAlert: Bool = false
@@ -48,7 +48,7 @@ struct ProfileCreationView: View {
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(8)
             
-            TextField("Language Preference", text: $languagePreference)
+            TextField("Language", text: $language)
                 .padding()
                 .background(Color(.secondarySystemBackground))
                 .cornerRadius(8)
@@ -92,7 +92,7 @@ struct ProfileCreationView: View {
             "username": username,
             "dob": dob,
             "education": education,
-            "languagePreference": languagePreference,
+            "language": language,
             "bio": bio
         ]
         
