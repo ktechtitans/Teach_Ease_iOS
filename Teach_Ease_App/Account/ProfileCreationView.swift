@@ -18,8 +18,7 @@ struct ProfileCreationView: View {
     @State private var bio: String = ""
     @State private var alertMessage: String = ""
     @State private var showAlert: Bool = false
-    @State private var isProfileSaved: Bool = false // State to control navigation
-
+    @State private var isProfileSaved: Bool = false
     var body: some View {
         VStack(spacing: 20) {
             Text("Create Your Profile")
@@ -71,8 +70,7 @@ struct ProfileCreationView: View {
             .padding(.top, 60)
             
             Spacer()
-            
-            // NavigationLink to HomePageView
+        
             NavigationLink(destination: HomePageView(), isActive: $isProfileSaved) {
                 EmptyView()
             }

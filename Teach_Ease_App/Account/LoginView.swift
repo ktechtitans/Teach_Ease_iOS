@@ -13,8 +13,8 @@ struct LoginView: View {
     @State private var userLogin = UserLogin(email: "", password: "")
     @State private var alertMessage = ""
     @State private var showAlert = false
-    @State private var isLoggedIn = false // Tracks login state
-
+    @State private var isLoggedIn = false
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -48,7 +48,7 @@ struct LoginView: View {
 
                 Spacer()
                 
-                // Navigation Link to HomePageView when logged in
+               
                 NavigationLink(
                     destination: HomePageView(),
                     isActive: $isLoggedIn
@@ -77,7 +77,7 @@ struct LoginView: View {
             } else {
                 alertMessage = "Login successful!"
                 showAlert = true
-                isLoggedIn = true // Set login state to true
+                isLoggedIn = true
             }
         }
     }

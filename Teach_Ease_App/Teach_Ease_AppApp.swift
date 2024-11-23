@@ -19,7 +19,6 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct Teach_Ease_App: App {
-  // register app delegate for Firebase setup
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
 

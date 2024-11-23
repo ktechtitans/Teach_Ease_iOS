@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A48BF312CEAD62F00F5F4A7 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48BF302CEAD62F00F5F4A7 /* FirebaseService.swift */; };
 		9A5D0D412CDD5292001C2DD5 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5D0D402CDD5289001C2DD5 /* ProfileData.swift */; };
 		9A83BC462CD166AE002EE53D /* Teach_Ease_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC452CD166AE002EE53D /* Teach_Ease_AppApp.swift */; };
 		9A83BC482CD166AE002EE53D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC472CD166AE002EE53D /* ContentView.swift */; };
@@ -37,7 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9A48BF302CEAD62F00F5F4A7 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		9A5D0D402CDD5289001C2DD5 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		9A83BC422CD166AE002EE53D /* Teach_Ease_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Teach_Ease_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A83BC452CD166AE002EE53D /* Teach_Ease_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teach_Ease_AppApp.swift; sourceTree = "<group>"; };
@@ -120,6 +118,7 @@
 		9A83BC6A2CD16BAE002EE53D /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				9ABB32CC2CDC036B00EFAD2C /* ProfileCreationView.swift */,
 				9A83BC6D2CD16BF3002EE53D /* RegisterView.swift */,
 				9A83BC6F2CD16C61002EE53D /* LoginView.swift */,
 			);
@@ -133,7 +132,6 @@
 				9A83BC752CD16DF2002EE53D /* UserRegistration.swift */,
 				9A83BC772CD16E2B002EE53D /* UserLogin.swift */,
 				9A83BC792CD16E53002EE53D /* CourseModel.swift */,
-				9A48BF302CEAD62F00F5F4A7 /* FirebaseService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -141,11 +139,10 @@
 		9A83BC6C2CD16BD6002EE53D /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				9ABB32CE2CDC653C00EFAD2C /* ProfileView.swift */,
-				9ABB32CC2CDC036B00EFAD2C /* ProfileCreationView.swift */,
 				9A83BC712CD16C9F002EE53D /* HomePageView.swift */,
 				9A83BC732CD16CD7002EE53D /* HomeContentView.swift */,
 				9A83BC7B2CD16EB0002EE53D /* SearchPageView.swift */,
+				9ABB32CE2CDC653C00EFAD2C /* ProfileView.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -240,7 +237,6 @@
 				9A83BC7A2CD16E53002EE53D /* CourseModel.swift in Sources */,
 				9A83BC762CD16DF2002EE53D /* UserRegistration.swift in Sources */,
 				9A83BC6E2CD16BF3002EE53D /* RegisterView.swift in Sources */,
-				9A48BF312CEAD62F00F5F4A7 /* FirebaseService.swift in Sources */,
 				9ABB32CF2CDC653D00EFAD2C /* ProfileView.swift in Sources */,
 				9A83BC782CD16E2B002EE53D /* UserLogin.swift in Sources */,
 				9A83BC482CD166AE002EE53D /* ContentView.swift in Sources */,

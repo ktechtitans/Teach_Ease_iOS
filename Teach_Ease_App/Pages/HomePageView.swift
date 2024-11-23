@@ -10,7 +10,6 @@ import SwiftUI
 struct HomePageView: View {
     var body: some View {
         TabView {
-            // Home Tab
             NavigationStack {
                 HomeContentView()
             }
@@ -18,8 +17,6 @@ struct HomePageView: View {
                 Image(systemName: "house.fill")
                 Text("Home")
             }
-
-            // Search Tab
             NavigationStack {
                 SearchPageView()
             }
@@ -28,9 +25,8 @@ struct HomePageView: View {
                 Text("Search")
             }
 
-            // Profile Tab - Shows the ProfileView directly
             NavigationStack {
-                ProfileView() // Show ProfileView here
+                ProfileView() 
             }
             .tabItem {
                 Image(systemName: "person.fill")

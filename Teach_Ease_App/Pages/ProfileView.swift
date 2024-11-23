@@ -18,7 +18,7 @@ struct ProfileView: View {
     @State private var language: String = ""
     @State private var bio: String = ""
     @State private var isLoading: Bool = true
-    @State private var shouldRedirectToRegister: Bool = false // Add state to control navigation
+    @State private var shouldRedirectToRegister: Bool = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -67,7 +67,7 @@ struct ProfileView: View {
                 }
                 .padding(.bottom, 40)
 
-                // NavigationLink to RegisterView
+          
                 NavigationLink(destination: RegisterView(), isActive: $shouldRedirectToRegister) {
                     EmptyView()
                 }
@@ -122,7 +122,7 @@ struct ProfileView: View {
     func signOut() {
         do {
             try Auth.auth().signOut()
-            shouldRedirectToRegister = true // Trigger the navigation to RegisterView
+            shouldRedirectToRegister = true
         } catch let error {
             print("Error signing out: \(error.localizedDescription)")
         }
