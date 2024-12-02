@@ -10,9 +10,8 @@ import SwiftUI
 // MARK: - HomeContentView
 struct HomeContentView: View {
     var body: some View {
-        NavigationView { // Wrap in NavigationView to enable navigation
+        NavigationView { 
             VStack(spacing: 0) {
-                // Title Section
                 HStack {
                     Text("TeachEase")
                         .font(.largeTitle)
@@ -35,48 +34,42 @@ struct HomeContentView: View {
                 .background(Color.white)
                 
                 Divider()
-
-                // Scrollable Content
+                
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        // Featured Course Section
                         FeaturedCourseView(course: featuredCourse)
                             .padding(.horizontal, 20)
 
-                        // Programming Courses Section Title
                         Text("Programming Categories")
                             .font(.headline)
                             .padding(.horizontal, 20)
 
-                        // Programming Courses Section
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
                                 ForEach(sampleCourses) { course in
-                                    NavigationLink(destination: CourseDetailView(course: course)) { // NavigationLink for tapping on the course card
+                                    NavigationLink(destination: CourseDetailView(course: course)) {
                                         CourseCard(course: course)
                                             .frame(width: 220)
                                     }
-                                    .buttonStyle(PlainButtonStyle()) // Avoid default button styling of NavigationLink
+                                    .buttonStyle(PlainButtonStyle())
                                 }
                             }
                             .padding(.horizontal, 20)
                         }
                         .padding(.top, 10)
-
-                        // Science Courses Section Title
+                        
                         Text("Science Categories")
                             .font(.headline)
                             .padding(.horizontal, 20)
 
-                        // Science Courses Section
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
                                 ForEach(sampleScienceCourses) { course in
-                                    NavigationLink(destination: CourseDetailView(course: course)) { // NavigationLink for tapping on the course card
+                                    NavigationLink(destination: CourseDetailView(course: course)) {
                                         CourseCard(course: course)
                                             .frame(width: 220)
                                     }
-                                    .buttonStyle(PlainButtonStyle()) // Avoid default button styling of NavigationLink
+                                    .buttonStyle(PlainButtonStyle())
                                 }
                             }
                             .padding(.horizontal, 20)
@@ -147,6 +140,7 @@ struct CourseCard: View {
                 .lineLimit(2)
         }
         .padding()
+        .frame(width: 220, height: 300)
         .background(Color.white)
         .cornerRadius(12)
         .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
@@ -158,30 +152,37 @@ struct CourseDetailView: View {
     let course: CourseModel
     
     var body: some View {
-        VStack(spacing: 20) {
-            Image(course.image)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 300)
-                .cornerRadius(12)
-            
-            Text(course.title)
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.top, 20)
-            
-            Text(course.description)
-                .font(.body)
-                .padding()
-            
-            Spacer()
+        ScrollView {
+            VStack(spacing: 20) {
+                Image(course.image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 300)
+                    .cornerRadius(12)
+                
+                Text(course.title)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top, -50)
+                
+                Text(course.description)
+                    .font(.headline)
+                    .padding([.horizontal, .top])
+                    .padding(.top, -30)
+                
+                Text(course.details)
+                    .font(.body)
+                    .padding([.horizontal, .bottom])
+                
+                Spacer()
+            }
+            .padding()
         }
-        .padding()
         .navigationTitle(course.title)
     }
 }
 
-// Preview for SwiftUI Canvas
+
 #Preview {
     HomeContentView()
 }

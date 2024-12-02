@@ -103,7 +103,7 @@ struct ProfileCreationView: View {
             } else {
                 alertMessage = "Profile saved successfully!"
                 showAlert = true
-                isProfileSaved = true // Navigate to HomePageView
+                isProfileSaved = true 
             }
         }
     }

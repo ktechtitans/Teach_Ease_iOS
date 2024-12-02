@@ -69,7 +69,7 @@ struct ProfileView: View {
                     .padding(.bottom, 40)
 
                     NavigationLink(destination: RegisterView()
-                                    .navigationBarBackButtonHidden(true), // Hide back button here
+                                    .navigationBarBackButtonHidden(true),
                                    isActive: $shouldRedirectToRegister) {
                         EmptyView()
                     }
@@ -77,7 +77,7 @@ struct ProfileView: View {
             }
             .onAppear(perform: fetchProfileData)
         }
-        .navigationBarBackButtonHidden(true) // Hide back button for ProfileView
+        .navigationBarBackButtonHidden(true) 
     }
 
     func profileRow(label: String, value: String) -> some View {
