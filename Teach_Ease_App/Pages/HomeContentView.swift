@@ -29,21 +29,21 @@ struct HomeContentView: View {
                 }
                 .padding()
 
-                // Show loading indicator or the categories
+                
                 if isLoading {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                         .padding()
                 } else {
                     ScrollView {
-                        // Display categories and courses
+                       
                         ForEach(categories) { category in
                             VStack(alignment: .leading) {
                                 Text(category.title)
                                     .font(.system(size: 20, weight: .bold))
                                     .padding(.top)
                                 
-                                // Courses in LazyHStack (horizontal scroll)
+                                
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 16) {
                                         ForEach(category.courses) { course in
@@ -60,8 +60,8 @@ struct HomeContentView: View {
                     }
                 }
             }
-            .navigationTitle("")  // Remove the "Home" title
-            .onAppear(perform: loadData) // Ensure data loads when the view appears
+            .navigationTitle("")
+            .onAppear(perform: loadData)
         }
     }
     
@@ -75,12 +75,11 @@ struct HomeContentView: View {
             
             var loadedCategories: [Category] = []
             
-            // Loop through categories
             for document in snapshot!.documents {
                 let categoryId = document.documentID
                 let title = document["title"] as? String ?? "Untitled Category"
                 
-                // Fetch courses in this category
+                
                 db.collection("categories").document(categoryId).collection("courses").getDocuments { courseSnapshot, error in
                     if let error = error {
                         print("Error fetching courses: \(error.localizedDescription)")
@@ -97,11 +96,11 @@ struct HomeContentView: View {
                         courses.append(course)
                     }
                     
-                    // Add the category with courses
+                  
                     let category = Category(id: categoryId, title: title, courses: courses)
                     loadedCategories.append(category)
                     
-                    // Update state when all categories are loaded
+                   
                     if loadedCategories.count == snapshot!.documents.count {
                         self.categories = loadedCategories
                         self.isLoading = false
@@ -117,44 +116,43 @@ struct CategoryCard: View {
     
     var body: some View {
         VStack {
-            // Set a fixed size for the image
+          
             if let url = URL(string: course.imageUrl), !course.imageUrl.isEmpty {
                 AsyncImage(url: url) { image in
                     image.resizable().scaledToFill()
                 } placeholder: {
                     Color.gray
                 }
-                .frame(width: 160, height: 120)  // Fixed size for image
+                .frame(width: 160, height: 120)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             } else {
                 Color.gray
-                    .frame(width: 160, height: 120)  // Fixed size for fallback color
+                    .frame(width: 160, height: 120)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                // Set a fixed height for the course name and description area
+               
                 Text(course.courseName)
                     .font(.system(size: 16, weight: .bold))
-                    .lineLimit(1)  // Limit to 1 line for course name
-                    .frame(maxWidth: 160, alignment: .leading)  // Fixed width
+                    .lineLimit(1)
+                    .frame(maxWidth: 160, alignment: .leading)
                 
                 Text(course.courseDescription)
                     .font(.system(size: 12))
-                    .lineLimit(2)  // Limit description to 2 lines
+                    .lineLimit(2)
                     .foregroundColor(.gray)
-                    .frame(maxWidth: 160, alignment: .leading)  // Fixed width
+                    .frame(maxWidth: 160, alignment: .leading)
             }
             .padding(8)
         }
-        .frame(width: 160, height: 220)  // Fixed height for the entire card
+        .frame(width: 160, height: 220)
         .background(Color.white)
         .cornerRadius(12)
         .shadow(radius: 4)
     }
 }
 
-// CourseDetailView for showing course details
 struct CourseDetailView: View {
     var course: Course
     
@@ -185,7 +183,7 @@ struct CourseDetailView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(course.courseName) // Set the title of the navigation bar to the course name
+            .navigationTitle(course.courseName) 
         }
     }
 }

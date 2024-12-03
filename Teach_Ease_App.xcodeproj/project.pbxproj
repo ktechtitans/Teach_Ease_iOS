@@ -31,6 +31,7 @@
 		9A83BC782CD16E2B002EE53D /* UserLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC772CD16E2B002EE53D /* UserLogin.swift */; };
 		9A83BC7A2CD16E53002EE53D /* CourseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC792CD16E53002EE53D /* CourseModel.swift */; };
 		9A83BC7C2CD16EB0002EE53D /* SearchPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A83BC7B2CD16EB0002EE53D /* SearchPageView.swift */; };
+		9AACEB672CFF68D4004E1686 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AACEB662CFF68D4004E1686 /* ForgotPasswordView.swift */; };
 		9ABB32CD2CDC037F00EFAD2C /* ProfileCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB32CC2CDC036B00EFAD2C /* ProfileCreationView.swift */; };
 		9ABB32CF2CDC653D00EFAD2C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABB32CE2CDC653C00EFAD2C /* ProfileView.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +52,7 @@
 		9A83BC772CD16E2B002EE53D /* UserLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogin.swift; sourceTree = "<group>"; };
 		9A83BC792CD16E53002EE53D /* CourseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseModel.swift; sourceTree = "<group>"; };
 		9A83BC7B2CD16EB0002EE53D /* SearchPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageView.swift; sourceTree = "<group>"; };
+		9AACEB662CFF68D4004E1686 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		9ABB32CC2CDC036B00EFAD2C /* ProfileCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCreationView.swift; sourceTree = "<group>"; };
 		9ABB32CE2CDC653C00EFAD2C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +123,7 @@
 				9ABB32CC2CDC036B00EFAD2C /* ProfileCreationView.swift */,
 				9A83BC6D2CD16BF3002EE53D /* RegisterView.swift */,
 				9A83BC6F2CD16C61002EE53D /* LoginView.swift */,
+				9AACEB662CFF68D4004E1686 /* ForgotPasswordView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 				9A83BC782CD16E2B002EE53D /* UserLogin.swift in Sources */,
 				9A83BC482CD166AE002EE53D /* ContentView.swift in Sources */,
 				9A83BC7C2CD16EB0002EE53D /* SearchPageView.swift in Sources */,
+				9AACEB672CFF68D4004E1686 /* ForgotPasswordView.swift in Sources */,
 				9A5D0D412CDD5292001C2DD5 /* ProfileData.swift in Sources */,
 				9A83BC702CD16C61002EE53D /* LoginView.swift in Sources */,
 				9A83BC742CD16CD7002EE53D /* HomeContentView.swift in Sources */,

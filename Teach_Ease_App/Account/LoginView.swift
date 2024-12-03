@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     @State private var isLoggedIn = false
+    @State private var showForgotPasswordSheet = false
     
     var body: some View {
         NavigationView {
@@ -46,9 +47,17 @@ struct LoginView: View {
                 }
                 .padding(.top)
 
+                Button(action: {
+                    showForgotPasswordSheet.toggle()
+                }) {
+                    Text("Forgot Password?")
+                        .foregroundColor(.blue)
+                        .font(.subheadline)
+                }
+                .padding(.top, 10)
+
                 Spacer()
                 
-               
                 NavigationLink(
                     destination: HomePageView(),
                     isActive: $isLoggedIn
@@ -59,6 +68,9 @@ struct LoginView: View {
             .padding()
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Login Status"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+            .sheet(isPresented: $showForgotPasswordSheet) {
+                ForgotPasswordView()
             }
         }
     }
