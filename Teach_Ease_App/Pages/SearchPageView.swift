@@ -8,49 +8,24 @@
 import SwiftUI
 
 struct SearchPageView: View {
-    @State private var searchText: String = ""
-    @FocusState private var isSearchFieldFocused: Bool
-    let allCourses: [CourseModel] = sampleCourses + sampleScienceCourses
+    @State private var searchQuery: String = ""
 
     var body: some View {
-        VStack {
-            TextField("Search...", text: $searchText)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-                .padding(.horizontal)
-                .focused($isSearchFieldFocused)
+        NavigationView {
+            VStack {
+                // Simple Search Bar
+                TextField("Search for a course", text: $searchQuery)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .autocapitalization(.none)
+                    .padding(.horizontal)
 
-            ScrollView {
-                let filteredCourses = allCourses.filter { course in
-                    course.title.localizedCaseInsensitiveContains(searchText) ||
-                    course.description.localizedCaseInsensitiveContains(searchText)
-                }
-
-                ForEach(filteredCourses) { course in
-                    CourseCard(course: course)
-                        .padding(.horizontal)
-                }
-
-                if filteredCourses.isEmpty && !searchText.isEmpty {
-                    Text("No results found for \"\(searchText)\".")
-                        .padding()
-                        .foregroundColor(.gray)
-                }
+                Spacer()
             }
-
-            Spacer()
-        }
-        .navigationTitle("Search")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            isSearchFieldFocused = true
+            .navigationTitle("Search Courses")
         }
     }
 }
-
-
 
 #Preview {
     SearchPageView()

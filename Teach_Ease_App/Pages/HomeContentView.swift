@@ -6,183 +6,193 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
-// MARK: - HomeContentView
 struct HomeContentView: View {
+    @State private var categories: [Category] = []
+    @State private var isLoading: Bool = true
+    
+    private var db = Firestore.firestore()
+    
     var body: some View {
-        NavigationView { 
-            VStack(spacing: 0) {
+        NavigationView {
+            VStack {
                 HStack {
                     Text("TeachEase")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-                        .padding(.vertical, 70)
-                        .padding(.bottom, -40)
-
+                        .font(.system(size: 28, weight: .bold))
+                        .padding(.top, 40)
                     Spacer()
-
                     Text("Welcome!")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
-                        .padding(.bottom, -40)
+                        .font(.system(size: 18))
+                        .foregroundColor(.black)
+                        .padding(.top, 40)
                 }
                 .padding()
-                .background(Color.white)
-                
-                Divider()
-                
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        FeaturedCourseView(course: featuredCourse)
-                            .padding(.horizontal, 20)
 
-                        Text("Programming Categories")
-                            .font(.headline)
-                            .padding(.horizontal, 20)
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 15) {
-                                ForEach(sampleCourses) { course in
-                                    NavigationLink(destination: CourseDetailView(course: course)) {
-                                        CourseCard(course: course)
-                                            .frame(width: 220)
+                // Show loading indicator or the categories
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .padding()
+                } else {
+                    ScrollView {
+                        // Display categories and courses
+                        ForEach(categories) { category in
+                            VStack(alignment: .leading) {
+                                Text(category.title)
+                                    .font(.system(size: 20, weight: .bold))
+                                    .padding(.top)
+                                
+                                // Courses in LazyHStack (horizontal scroll)
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 16) {
+                                        ForEach(category.courses) { course in
+                                            NavigationLink(destination: CourseDetailView(course: course)) {
+                                                CategoryCard(course: course)
+                                            }
+                                        }
                                     }
-                                    .buttonStyle(PlainButtonStyle())
+                                    .padding(.bottom)
                                 }
                             }
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal)
                         }
-                        .padding(.top, 10)
-                        
-                        Text("Science Categories")
-                            .font(.headline)
-                            .padding(.horizontal, 20)
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 15) {
-                                ForEach(sampleScienceCourses) { course in
-                                    NavigationLink(destination: CourseDetailView(course: course)) {
-                                        CourseCard(course: course)
-                                            .frame(width: 220)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
-                            }
-                            .padding(.horizontal, 20)
-                        }
-                        .padding(.top, 10)
                     }
                 }
             }
-            .background(Color(UIColor.systemGroupedBackground))
-            .ignoresSafeArea(edges: .top)
+            .navigationTitle("")  // Remove the "Home" title
+            .onAppear(perform: loadData) // Ensure data loads when the view appears
         }
     }
-}
-
-// MARK: - FeaturedCourseView
-struct FeaturedCourseView: View {
-    let course: CourseModel
     
-    var body: some View {
-        ZStack {
-            Image(course.image)
-                .resizable()
-                .scaledToFill()
-                .frame(height: 200)
-                .cornerRadius(12)
-                .overlay(
-                    Color.black.opacity(0.4)
-                        .cornerRadius(12)
-                )
-
-            VStack(alignment: .leading, spacing: 8) {
-                Text(course.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                Text(course.description)
-                    .font(.body)
-                    .foregroundColor(.white)
+    func loadData() {
+        db.collection("categories").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching categories: \(error.localizedDescription)")
+                self.isLoading = false
+                return
             }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            var loadedCategories: [Category] = []
+            
+            // Loop through categories
+            for document in snapshot!.documents {
+                let categoryId = document.documentID
+                let title = document["title"] as? String ?? "Untitled Category"
+                
+                // Fetch courses in this category
+                db.collection("categories").document(categoryId).collection("courses").getDocuments { courseSnapshot, error in
+                    if let error = error {
+                        print("Error fetching courses: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    var courses: [Course] = []
+                    for courseDocument in courseSnapshot!.documents {
+                        let courseName = courseDocument["courseName"] as? String ?? "Unnamed Course"
+                        let courseDescription = courseDocument["courseDescription"] as? String ?? ""
+                        let imageUrl = courseDocument["imageUrl"] as? String ?? ""
+                        
+                        let course = Course(id: courseDocument.documentID, courseName: courseName, courseDescription: courseDescription, imageUrl: imageUrl)
+                        courses.append(course)
+                    }
+                    
+                    // Add the category with courses
+                    let category = Category(id: categoryId, title: title, courses: courses)
+                    loadedCategories.append(category)
+                    
+                    // Update state when all categories are loaded
+                    if loadedCategories.count == snapshot!.documents.count {
+                        self.categories = loadedCategories
+                        self.isLoading = false
+                    }
+                }
+            }
         }
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
     }
 }
 
-// MARK: - CourseCard
-struct CourseCard: View {
-    let course: CourseModel
+struct CategoryCard: View {
+    var course: Course
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Image(course.image)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 120)
-                .cornerRadius(10)
-
-            Text(course.title)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .lineLimit(1)
-
-            Text(course.description)
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .lineLimit(2)
+        VStack {
+            // Set a fixed size for the image
+            if let url = URL(string: course.imageUrl), !course.imageUrl.isEmpty {
+                AsyncImage(url: url) { image in
+                    image.resizable().scaledToFill()
+                } placeholder: {
+                    Color.gray
+                }
+                .frame(width: 160, height: 120)  // Fixed size for image
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            } else {
+                Color.gray
+                    .frame(width: 160, height: 120)  // Fixed size for fallback color
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                // Set a fixed height for the course name and description area
+                Text(course.courseName)
+                    .font(.system(size: 16, weight: .bold))
+                    .lineLimit(1)  // Limit to 1 line for course name
+                    .frame(maxWidth: 160, alignment: .leading)  // Fixed width
+                
+                Text(course.courseDescription)
+                    .font(.system(size: 12))
+                    .lineLimit(2)  // Limit description to 2 lines
+                    .foregroundColor(.gray)
+                    .frame(maxWidth: 160, alignment: .leading)  // Fixed width
+            }
+            .padding(8)
         }
-        .padding()
-        .frame(width: 220, height: 300)
+        .frame(width: 160, height: 220)  // Fixed height for the entire card
         .background(Color.white)
         .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 0, y: 2)
+        .shadow(radius: 4)
     }
 }
 
-// MARK: - CourseDetailView
+// CourseDetailView for showing course details
 struct CourseDetailView: View {
-    let course: CourseModel
+    var course: Course
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                Image(course.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 300)
-                    .cornerRadius(12)
+            VStack {
+                if let url = URL(string: course.imageUrl), !course.imageUrl.isEmpty {
+                    AsyncImage(url: url) { image in
+                        image.resizable().scaledToFit()
+                    } placeholder: {
+                        Color.gray
+                    }
+                    .frame(height: 250)
+                } else {
+                    Color.gray
+                        .frame(height: 250)
+                }
+
+                Text(course.courseName)
+                    .font(.system(size: 24, weight: .bold))
+                    .padding(.top, 16)
                 
-                Text(course.title)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top, -50)
-                
-                Text(course.description)
-                    .font(.headline)
-                    .padding([.horizontal, .top])
-                    .padding(.top, -30)
-                
-                Text(course.details)
-                    .font(.body)
-                    .padding([.horizontal, .bottom])
-                
+                Text(course.courseDescription)
+                    .font(.system(size: 16))
+                    .padding(.top, 8)
+                    .foregroundColor(.gray)
+
                 Spacer()
             }
             .padding()
+            .navigationTitle(course.courseName) // Set the title of the navigation bar to the course name
         }
-        .navigationTitle(course.title)
     }
 }
 
-
-#Preview {
-    HomeContentView()
+struct HomeContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeContentView()
+    }
 }
+
